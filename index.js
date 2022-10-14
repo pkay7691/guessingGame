@@ -1,64 +1,160 @@
-// let numberToGuess = Math.floor(Math.random() * 100);
-let numberToGuess = 5;
-console.log(numberToGuess)
+let numberToGuess = Math.floor(Math.random() * 100);
 
 
-let count = 0;
+
+
 let guessObject = {
     firstGuess: 0,
     secondGuess: 0,
     thirdGuess: 0,
     fourthGuess: 0,
     fifthGuess: 0,
-    
-}
+    count: 0,
 
-function guessStatus (guess) {
+}
+let guessDiv = document.querySelector("#guess-div")
+let guessOne = document.querySelector("#guess-1")
+guessOne.innerHTML = guessObject.firstGuess;
+
+
+
+
+let guessTwo = document.querySelector("#guess-2");
+guessTwo.innerHTML = guessObject.secondGuess;
+
+let guessThree = document.querySelector("#guess-3");
+guessThree.innerHTML = guessObject.thirdGuess;
+
+let guessFour = document.querySelector("#guess-4")
+guessFour.innerHTML = guessObject.fourthGuess;
+
+let guessFive = document.querySelector("#guess-5")
+guessFive.innerHTML = guessObject.fifthGuess;
+
+
+
+let count = 0;
+function guessStatus(guess) {
+    const guessStatusMsg = document.querySelector("#status");
     let guessDifference = guess - numberToGuess;
-    if (guessDifference < 0) {
-        guessDifference = guessDifference * -1
+    if (guess < numberToGuess) {
+        guessStatusMsg.innerHTML ="Last Guess was Too Low!";
     }
-    if (guessDifference === 0) {
-        console.log("You Win")
-    } else if (guessDifference < 10) {
-            console.log("You're getting close")    
-    } else if (guessDifference < 20) {
-        console.log("Sort of Close")
-    } else if (guessDifference < 70) {
-        console.log("Not even close")
-    } else if (guessDifference < 100) {
-        console.log("You're bad at this")
+    else if (guess > numberToGuess) {
+        guessStatusMsg.innerHTML ="Last Guess was Too High!";
+    }
+    else if (guess == numberToGuess) {
+        guessStatusMsg.innerHTML = 'You win';
     }
 }
 
-let textInput = document.querySelector("input");
-let guessButton = document.querySelector("#guess-button");
-guessButton.addEventListener("click", function() {
-    guessObject.firstGuess = document.getElementById("input").value;
-    console.log(numberToGuess)
-    console.log(guessObject.firstGuess);
-    guessStatus(guessObject.firstGuess);
-
-})
-
-function hintFunction () {
-    let hintNum1 =  Math.floor(Math.random() * 100);
-    let hintNum2 =  Math.floor(Math.random() * 100);
-    console.log(`It's one of these three Numbers!  ${hintNum1} or ${hintNum2} or ${numberToGuess}`)
-}
-
-function gameReset () {
-    let numberToGuess = Math.floor(Math.random() * 100);
-    count = 0;
+function gameReset() {
+    numberToGuess = Math.floor(Math.random() * 100);
+    guessObject.count = 0;
     guessObject.firstGuess = 0;
     guessObject.secondGuess = 0;
     guessObject.thirdGuess = 0;
     guessObject.fourthGuess = 0;
     guessObject.fifthGuess = 0;
-    
+    guessOne.innerHTML = 0;
+    guessTwo.innerHTML = 0;
+    guessThree.innerHTML = 0;
+    guessFour.innerHTML = 0;
+    guessFive.innerHTML = 0;
+
 }
 
 
 
+let textInput = document.querySelector("input");
+let guessButton = document.querySelector("#guess-button");
+guessButton.addEventListener("click", function () {
+    if (document.getElementById("input").value === numberToGuess) {
+        console.log("You win");
+        
 
-// document.getElementById("myForm").reset();
+    }
+    if (guessObject.count === 0) {
+        guessObject.firstGuess = document.getElementById("input").value;
+        // console.log(numberToGuess)
+        // console.log(guessObject.firstGuess);
+        guessStatus(guessObject.firstGuess);
+        let guessOne = document.querySelector("#guess-1");
+        guessOne.innerHTML = guessObject.firstGuess;
+        
+    }
+    if (guessObject.count === 1) {
+        guessObject.secondGuess = document.getElementById("input").value;
+        // console.log(numberToGuess)
+        // console.log(guessObject.secondGuess);
+        guessStatus(guessObject.secondGuess);
+        let guessTwo = document.querySelector("#guess-2");
+        guessTwo.innerHTML = guessObject.secondGuess;
+    }
+    if (guessObject.count === 2) {
+        guessObject.thirdGuess = document.getElementById("input").value;
+        // console.log(numberToGuess)
+        // console.log(guessObject.thirdGuess);
+        guessStatus(guessObject.thirdGuess);
+        let guessThree = document.querySelector("#guess-3");
+        guessThree.innerHTML = guessObject.thirdGuess;
+        
+    }
+    if (guessObject.count === 3) {
+        guessObject.fourthGuess = document.getElementById("input").value;
+        // console.log(numberToGuess)
+        // console.log(guessObject.fourthGuess);
+        guessStatus(guessObject.fourthGuess);
+        let guessFour = document.querySelector("#guess-4")
+        guessFour.innerHTML = guessObject.fourthGuess;
+    }
+    if (guessObject.count === 4) {
+        guessObject.fifthGuess = document.getElementById("input").value;
+        // console.log(numberToGuess)
+        // console.log(guessObject.fifthGuess);
+        guessStatus(guessObject.fifthGuess);
+        guessFive.innerHTML = guessObject.fifthGuess;
+    }
+    if (guessObject.count === 5) {
+        hintMsg.innerHTML = `The Number was ${numberToGuess}`;
+        gameReset();
+        guessObject.count--;
+        guessOne.innerHTML = 0;
+        guessTwo.innerHTML = 0;
+        guessThree.innerHTML = 0;
+        guessFour.innerHTML = 0;
+        guessFive.innerHTML = 0;
+        
+    }
+    guessObject.count++;
+    
+
+    
+    console.log(guessObject)
+    console.log(guessObject.count);
+
+})
+
+
+
+// function hintFunction() {
+//     let hintNum1 = Math.floor(Math.random() * 100);
+//     let hintNum2 = Math.floor(Math.random() * 100);
+//     console.log(`It's one of these three Numbers!  ${hintNum1} or ${hintNum2} or ${numberToGuess}`)
+// }
+
+
+let hintMsg = document.querySelector("#hintMessage")
+let hintButton = document.querySelector("#hintButton");
+hintButton.addEventListener("click", function () {
+    let hintNum1 = Math.floor(Math.random() * 100);
+    let hintNum2 = Math.floor(Math.random() * 100);
+    hintMsg.innerHTML = `It's one of these three Numbers!  ${hintNum1} or ${hintNum2} or ${numberToGuess}`;
+
+})
+
+let resetButton = document.querySelector("#buttonReset")
+resetButton.addEventListener("click", function() {
+    gameReset();
+
+})
