@@ -156,5 +156,3 @@ hintButton.addEventListener("click", function () {
 let resetButton = document.querySelector("#buttonReset")
 resetButton.addEventListener("click", function() {
     gameReset();
-
-})
